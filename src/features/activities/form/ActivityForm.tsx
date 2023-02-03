@@ -7,7 +7,7 @@ import { v4 as uuid } from "uuid";
 import { Button, Header, Segment } from "semantic-ui-react";
 
 import LoadingComponent from "../../../app/layout/LoadingComponent";
-import { Activity } from "../../../app/models/activity";
+import { Activity, ActivityFormValues } from "../../../app/models/activity";
 import { useStore } from "../../../app/stores/store";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
@@ -17,25 +17,14 @@ import MyDateInput from "../../../app/common/form/MyDateInput";
 
 const ActivityForm = () => {
   const { activityStore } = useStore();
-  const {
-    loading,
-    loadActivity,
-    loadingInitial,
-    createActivity,
-    updateActivity,
-  } = activityStore;
+  const { loadActivity, loadingInitial, createActivity, updateActivity } =
+    activityStore;
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [activity, setActivity] = useState<Activity>({
-    id: "",
-    title: "",
-    category: "",
-    description: "",
-    date: null,
-    city: "",
-    venue: "",
-  });
+  const [activity, setActivity] = useState<ActivityFormValues>(
+    new ActivityFormValues()
+  );
 
   const validationSchema = Yup.object({
     title: Yup.string().required("The activity title is required"),
@@ -47,10 +36,13 @@ const ActivityForm = () => {
   });
 
   useEffect(() => {
-    if (id) loadActivity(id).then((activity) => setActivity(activity!));
+    if (id)
+      loadActivity(id).then((activity) =>
+        setActivity(new ActivityFormValues(activity))
+      );
   }, [id, loadActivity]);
 
-  const handleFormSubmit = (activity: Activity) => {
+  const handleFormSubmit = (activity: ActivityFormValues) => {
     if (!activity.id) {
       activity.id = uuid();
       createActivity(activity).then(() =>
@@ -99,7 +91,7 @@ const ActivityForm = () => {
               positive
               type="submit"
               content="Submit"
-              loading={loading}
+              loading={isSubmitting}
             />
             <Button
               as={Link}

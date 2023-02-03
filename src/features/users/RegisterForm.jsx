@@ -14,7 +14,7 @@ const RegisterForm = () => {
     <Formik
       initialValues={{
         displayName: "",
-        username: "",
+        userName: "",
         email: "",
         password: "",
         error: null,
@@ -24,7 +24,7 @@ const RegisterForm = () => {
       }
       validationSchema={Yup.object({
         displayName: Yup.string().required(),
-        username: Yup.string().required(),
+        userName: Yup.string().required(),
         email: Yup.string().required().email(),
         password: Yup.string().required(),
       })}
@@ -42,7 +42,7 @@ const RegisterForm = () => {
             textAlign="center"
           />
           <MyTextInput placeholder="Display Name" name="displayName" />
-          <MyTextInput placeholder="Username" name="username" />
+          <MyTextInput placeholder="Username" name="userName" />
           <MyTextInput placeholder="Email" name="email" />
           <MyTextInput placeholder="Password" name="password" type="password" />
           <ErrorMessage
