@@ -7,9 +7,10 @@ interface Props {
 const ValidationError = ({ errors }: Props) => {
   return (
     <Message error>
+      {console.log("errors", errors)}
       {errors && (
         <Message.List>
-          {errors.map((err: string, i: any) => {
+          {errors.map((err: any, i: any) => {
             return <Message.Item key={i}>{err}</Message.Item>;
           })}
         </Message.List>

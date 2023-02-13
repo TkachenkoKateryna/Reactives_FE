@@ -7,7 +7,7 @@ import { v4 as uuid } from "uuid";
 import { Button, Header, Segment } from "semantic-ui-react";
 
 import LoadingComponent from "../../../app/layout/LoadingComponent";
-import { Activity, ActivityFormValues } from "../../../app/models/activity";
+import { ActivityFormValues } from "../../../app/models/activity";
 import { useStore } from "../../../app/stores/store";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
@@ -28,7 +28,7 @@ const ActivityForm = () => {
 
   const validationSchema = Yup.object({
     title: Yup.string().required("The activity title is required"),
-    description: Yup.string().required("The descriprion title is required"),
+    description: Yup.string().required("The description title is required"),
     category: Yup.string().required("The category title is required"),
     date: Yup.string().required("The date title is required"),
     city: Yup.string().required("The city title is required"),

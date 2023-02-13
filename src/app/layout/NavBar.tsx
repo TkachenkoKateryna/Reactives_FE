@@ -9,10 +9,12 @@ import {
 import { Link, NavLink } from "react-router-dom";
 
 import { useStore } from "../stores/store";
+import { observer } from "mobx-react-lite";
 
 const NavBar = () => {
   const {
     userStore: { user, logout },
+    profileStore: { profile },
   } = useStore();
 
   return (
@@ -42,7 +44,7 @@ const NavBar = () => {
             <Dropdown.Menu>
               <Dropdown.Item
                 as={Link}
-                to={`/profile/${user?.userName}`}
+                to={`/profiles/${user?.userName}`}
                 text="My Profile"
               />
               <Dropdown.Item onClick={logout} text="Logout" icon="power" />
@@ -54,4 +56,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default observer(NavBar);
